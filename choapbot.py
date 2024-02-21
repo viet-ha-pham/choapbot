@@ -1,6 +1,8 @@
 import streamlit as st
 import pickle
 import time
+import random
+
 
 with open("vie_cho_dct_2023.pkl", "rb") as f:
     vie_cho_dct = pickle.load(f)
@@ -45,8 +47,31 @@ def save():
 def clear_chat_history():
     st.session_state.messages = []
 
+
+def random_sentence():
+    with open("đại ngộ.txt", "r", encoding="utf-8") as f:
+        lines = f.readlines()
+
+    sentences = [l.strip() for l in lines if l.strip()]
+
+    with open("đang định.txt", "r", encoding="utf-8") as f:
+        lines = f.readlines()
+
+    sentences.extend([l.strip() for l in lines if l.strip()])
+
+    with open("hay.txt", "r", encoding="utf-8") as f:
+        lines = f.readlines()
+
+    sentences.extend([l.strip() for l in lines if l.strip()])
+
+    return random.choice(sentences)
+
+
 def response_generator(prompt):
-    response = trans(prompt)
+    if "nói gì đi" in prompt:
+        response = random_sentence()
+    else:
+        response = trans(prompt)
     for word in response.split():
         yield word + " "
         time.sleep(0.05)
