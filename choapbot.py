@@ -30,7 +30,7 @@ def take_notes(inp):
     intent = get_intent(inp)
     for k in keywords:
         if intent == k:
-            with open(f"{k}.txt","w", encoding="utf-8") as f:
+            with open(f"{k}.txt","a", encoding="utf-8") as f:
                 f.write(inp + "\n")
 
 
@@ -38,7 +38,7 @@ def save():
     msg = st.session_state.messages[-2]["content"]
     msg += ": "
     msg += st.session_state.messages[-1]["content"]
-    with open("hay.txt", "w", encoding="utf-8") as f:
+    with open("hay.txt", "a", encoding="utf-8") as f:
         f.write(msg + "\n")
 
 
