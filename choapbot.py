@@ -7,6 +7,8 @@ import random
 with open("vie_cho_dct_2023.pkl", "rb") as f:
     vie_cho_dct = pickle.load(f)
 
+with open("cho_vie_dct_2023.pkl", "rb") as f:
+    cho_vie_dct = pickle.load(f)
 
 with open("keywords.txt", "r", encoding="utf-8") as f:
     lines = f.readlines()
@@ -16,7 +18,7 @@ keywords = [ l.strip() for l in lines if l.strip() ]
 
 def trans(txt):
     sp = txt.split()
-    return " ".join([ vie_cho_dct[w] if w in vie_cho_dct else w for w in sp]).replace("lồn","noòng").replace("khỏe","tãy")
+    return " ".join([ vie_cho_dct[w] if w in vie_cho_dct else cho_vie_dct[w] if w in cho_vie_dct else w for w in sp]).replace("lồn","noòng").replace("khỏe","tãy").replace("cặc","gioẻm")
 
 
 def get_intent(inp):
