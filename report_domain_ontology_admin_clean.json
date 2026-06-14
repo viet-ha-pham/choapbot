@@ -1,0 +1,595 @@
+{
+  "ontology_id": "report-domain-ontology-v0.2-rich-admin-clean-v1",
+  "description": "Ontology nghiệp vụ cho báo cáo/văn bản hành chính, dùng để điều khiển LLM tóm tắt theo các đề mục ổn định và gần văn phong cơ quan.",
+  "document_types": [
+    {
+      "id": "administrative_report",
+      "label": "Báo cáo hành chính",
+      "signals": [
+        "báo cáo",
+        "kết quả",
+        "tình hình",
+        "kiến nghị",
+        "tổ chức thực hiện"
+      ]
+    },
+    {
+      "id": "periodic_report",
+      "label": "Báo cáo định kỳ",
+      "signals": [
+        "tháng",
+        "quý",
+        "năm",
+        "kỳ báo cáo",
+        "lũy kế"
+      ]
+    },
+    {
+      "id": "implementation_plan",
+      "label": "Kế hoạch triển khai",
+      "signals": [
+        "mục đích",
+        "yêu cầu",
+        "nội dung",
+        "tiến độ",
+        "phân công"
+      ]
+    },
+    {
+      "id": "directive_notice",
+      "label": "Thông báo/nhắc nhở/chỉ đạo",
+      "signals": [
+        "yêu cầu",
+        "đề nghị",
+        "nhắc nhở",
+        "quán triệt",
+        "triển khai"
+      ]
+    },
+    {
+      "id": "meeting_conclusion",
+      "label": "Kết luận cuộc họp",
+      "signals": [
+        "kết luận",
+        "giao",
+        "thống nhất",
+        "thời hạn",
+        "đầu mối"
+      ]
+    }
+  ],
+  "concepts": [
+    {
+      "id": "executive_summary",
+      "preferred_heading": "Tóm tắt điều hành",
+      "aliases": [
+        "tóm tắt",
+        "khái quát",
+        "nhận định chung"
+      ],
+      "intent": "summarize_core_message",
+      "extraction_goal": "Nêu thông điệp chính, kết luận lớn, ý nghĩa quản trị và 2-5 điểm then chốt.",
+      "evidence_types": [
+        "conclusion",
+        "key_number",
+        "decision",
+        "major_issue"
+      ],
+      "max_bullets": 5,
+      "priority": 100
+    },
+    {
+      "id": "situation_context",
+      "preferred_heading": "Đặc điểm tình hình",
+      "aliases": [
+        "tình hình",
+        "bối cảnh",
+        "hiện trạng",
+        "đặc điểm chung",
+        "tình hình thực tế"
+      ],
+      "intent": "explain_context",
+      "extraction_goal": "Tóm tắt bối cảnh, phạm vi, điều kiện triển khai, biến động nổi bật và các yếu tố ảnh hưởng.",
+      "evidence_types": [
+        "context",
+        "scope",
+        "trend",
+        "constraint"
+      ],
+      "max_bullets": 6,
+      "priority": 95
+    },
+    {
+      "id": "objectives_requirements",
+      "preferred_heading": "Mục tiêu, yêu cầu",
+      "aliases": [
+        "mục tiêu",
+        "yêu cầu",
+        "mục đích",
+        "chỉ tiêu",
+        "định hướng"
+      ],
+      "intent": "state_objectives",
+      "extraction_goal": "Rút ra mục tiêu, yêu cầu, chỉ tiêu và tiêu chí hoàn thành nếu có.",
+      "evidence_types": [
+        "goal",
+        "requirement",
+        "target",
+        "kpi"
+      ],
+      "max_bullets": 6,
+      "priority": 88
+    },
+    {
+      "id": "scope_subjects",
+      "preferred_heading": "Phạm vi và đối tượng",
+      "aliases": [
+        "phạm vi",
+        "đối tượng",
+        "đơn vị liên quan",
+        "thành phần",
+        "thời gian áp dụng"
+      ],
+      "intent": "define_scope",
+      "extraction_goal": "Xác định phạm vi, đối tượng áp dụng, thời gian, địa bàn/đơn vị liên quan.",
+      "evidence_types": [
+        "scope",
+        "actor",
+        "time",
+        "unit"
+      ],
+      "max_bullets": 5,
+      "priority": 70
+    },
+    {
+      "id": "implementation_results",
+      "preferred_heading": "Kết quả thực hiện",
+      "aliases": [
+        "kết quả",
+        "kết quả đạt được",
+        "thực hiện",
+        "đã triển khai",
+        "hoàn thành"
+      ],
+      "intent": "present_results",
+      "extraction_goal": "Nêu kết quả đã thực hiện theo nhóm việc, chỉ tiêu, sản phẩm đầu ra và mức độ hoàn thành.",
+      "evidence_types": [
+        "result",
+        "metric",
+        "deliverable",
+        "completion_status"
+      ],
+      "max_bullets": 7,
+      "priority": 98
+    },
+    {
+      "id": "highlights",
+      "preferred_heading": "Kết quả nổi bật",
+      "aliases": [
+        "nổi bật",
+        "điểm nhấn",
+        "thành tích",
+        "kết quả tiêu biểu",
+        "điểm sáng"
+      ],
+      "intent": "highlight_achievements",
+      "extraction_goal": "Chọn các kết quả tiêu biểu, có tác động cao, số liệu tốt hoặc đổi mới đáng chú ý.",
+      "evidence_types": [
+        "achievement",
+        "impact",
+        "metric",
+        "innovation"
+      ],
+      "max_bullets": 6,
+      "priority": 96
+    },
+    {
+      "id": "limitations_causes",
+      "preferred_heading": "Tồn tại, hạn chế và nguyên nhân",
+      "aliases": [
+        "hạn chế",
+        "tồn tại",
+        "vướng mắc",
+        "khó khăn",
+        "nguyên nhân",
+        "bất cập"
+      ],
+      "intent": "analyze_limitations",
+      "extraction_goal": "Tách rõ hạn chế/vướng mắc và nguyên nhân chủ quan, khách quan nếu tài liệu có nêu.",
+      "evidence_types": [
+        "limitation",
+        "cause",
+        "risk",
+        "blocker"
+      ],
+      "max_bullets": 7,
+      "priority": 92
+    },
+    {
+      "id": "risks_warnings",
+      "preferred_heading": "Rủi ro và nhắc nhở",
+      "aliases": [
+        "rủi ro",
+        "cảnh báo",
+        "nhắc nhở",
+        "lưu ý",
+        "điểm cần chú ý",
+        "chấn chỉnh"
+      ],
+      "intent": "highlight_risks_and_reminders",
+      "extraction_goal": "Nêu các rủi ro, cảnh báo, nội dung cần nhắc nhở/chấn chỉnh và hậu quả nếu không xử lý.",
+      "evidence_types": [
+        "warning",
+        "risk",
+        "compliance_issue",
+        "reminder"
+      ],
+      "max_bullets": 6,
+      "priority": 90
+    },
+    {
+      "id": "measures_solutions",
+      "preferred_heading": "Biện pháp, giải pháp",
+      "aliases": [
+        "biện pháp",
+        "giải pháp",
+        "phương án",
+        "khắc phục",
+        "xử lý",
+        "đề xuất giải pháp"
+      ],
+      "intent": "recommend_solutions",
+      "extraction_goal": "Rút ra các biện pháp/giải pháp cụ thể, điều kiện thực hiện và kết quả kỳ vọng.",
+      "evidence_types": [
+        "action",
+        "solution",
+        "mitigation",
+        "resource"
+      ],
+      "max_bullets": 7,
+      "priority": 94
+    },
+    {
+      "id": "tasks_assignment",
+      "preferred_heading": "Nhiệm vụ và phân công",
+      "aliases": [
+        "phân công",
+        "giao",
+        "nhiệm vụ",
+        "đầu mối",
+        "trách nhiệm",
+        "phối hợp"
+      ],
+      "intent": "assign_tasks",
+      "extraction_goal": "Chuyển nội dung giao việc thành bảng: đơn vị/cá nhân, nhiệm vụ, thời hạn, sản phẩm đầu ra.",
+      "evidence_types": [
+        "owner",
+        "task",
+        "deadline",
+        "deliverable"
+      ],
+      "table_schema": [
+        "Đơn vị/Cá nhân",
+        "Nhiệm vụ",
+        "Thời hạn",
+        "Sản phẩm/ghi chú"
+      ],
+      "max_rows": 10,
+      "priority": 93
+    },
+    {
+      "id": "implementation_organization",
+      "preferred_heading": "Tổ chức thực hiện",
+      "aliases": [
+        "tổ chức thực hiện",
+        "triển khai",
+        "phối hợp thực hiện",
+        "chế độ báo cáo",
+        "đôn đốc"
+      ],
+      "intent": "organize_implementation",
+      "extraction_goal": "Nêu cách tổ chức triển khai, đầu mối, cơ chế phối hợp, chế độ báo cáo và kiểm tra đôn đốc.",
+      "evidence_types": [
+        "process",
+        "owner",
+        "coordination",
+        "reporting_mode"
+      ],
+      "max_bullets": 7,
+      "priority": 91
+    },
+    {
+      "id": "timeline_progress",
+      "preferred_heading": "Tiến độ và mốc thời gian",
+      "aliases": [
+        "tiến độ",
+        "lộ trình",
+        "mốc thời gian",
+        "kế hoạch thời gian",
+        "deadline"
+      ],
+      "intent": "show_progression",
+      "extraction_goal": "Trích xuất mốc thời gian, giai đoạn, deadline, thứ tự triển khai thành timeline/milestone.",
+      "evidence_types": [
+        "date",
+        "milestone",
+        "phase",
+        "deadline"
+      ],
+      "max_milestones": 8,
+      "priority": 87
+    },
+    {
+      "id": "data_metrics",
+      "preferred_heading": "Số liệu, chỉ tiêu chính",
+      "aliases": [
+        "số liệu",
+        "chỉ tiêu",
+        "thống kê",
+        "tỷ lệ",
+        "lũy kế",
+        "kết quả định lượng"
+      ],
+      "intent": "summarize_metrics",
+      "extraction_goal": "Trích xuất các chỉ tiêu/số liệu chính, đơn vị đo, kỳ so sánh và diễn giải ngắn.",
+      "evidence_types": [
+        "metric",
+        "number",
+        "rate",
+        "comparison"
+      ],
+      "table_schema": [
+        "Chỉ tiêu",
+        "Giá trị",
+        "Kỳ/đơn vị",
+        "Nhận xét"
+      ],
+      "max_rows": 8,
+      "priority": 85
+    },
+    {
+      "id": "comparison_assessment",
+      "preferred_heading": "So sánh, đánh giá",
+      "aliases": [
+        "so sánh",
+        "đối chiếu",
+        "đánh giá",
+        "xếp loại",
+        "phân tích"
+      ],
+      "intent": "compare_options",
+      "extraction_goal": "Nếu có nhiều nhóm/đơn vị/phương án/giai đoạn, tóm thành bảng so sánh có nhận xét.",
+      "evidence_types": [
+        "comparison",
+        "ranking",
+        "gap",
+        "assessment"
+      ],
+      "max_rows": 8,
+      "priority": 78
+    },
+    {
+      "id": "recommendations_proposals",
+      "preferred_heading": "Kiến nghị, đề xuất",
+      "aliases": [
+        "kiến nghị",
+        "đề xuất",
+        "đề nghị",
+        "xin ý kiến",
+        "kiến nghị cấp trên"
+      ],
+      "intent": "propose_recommendations",
+      "extraction_goal": "Nêu kiến nghị/đề xuất, đối tượng cần quyết định, nguồn lực cần hỗ trợ và mức ưu tiên.",
+      "evidence_types": [
+        "proposal",
+        "decision_needed",
+        "support_request",
+        "priority"
+      ],
+      "max_bullets": 6,
+      "priority": 89
+    },
+    {
+      "id": "conclusion_takeaway",
+      "preferred_heading": "Kết luận",
+      "aliases": [
+        "kết luận",
+        "tổng kết",
+        "nhận định",
+        "thông điệp cuối"
+      ],
+      "intent": "conclude_takeaway",
+      "extraction_goal": "Rút ra kết luận ngắn, nhấn mạnh ý nghĩa và hành động cần làm tiếp theo.",
+      "evidence_types": [
+        "conclusion",
+        "takeaway",
+        "decision"
+      ],
+      "max_bullets": 3,
+      "priority": 84
+    }
+  ],
+  "heading_selection_policy": {
+    "min_sections": 4,
+    "max_sections": 9,
+    "always_consider": [
+      "executive_summary",
+      "situation_context",
+      "implementation_results",
+      "limitations_causes",
+      "measures_solutions",
+      "implementation_organization"
+    ],
+    "include_if_signaled": {
+      "risks_warnings": [
+        "rủi ro",
+        "nhắc nhở",
+        "chấn chỉnh",
+        "cảnh báo"
+      ],
+      "tasks_assignment": [
+        "giao",
+        "phân công",
+        "đầu mối",
+        "thời hạn"
+      ],
+      "timeline_progress": [
+        "tiến độ",
+        "lộ trình",
+        "deadline",
+        "mốc"
+      ],
+      "data_metrics": [
+        "%",
+        "tỷ lệ",
+        "số lượng",
+        "chỉ tiêu",
+        "lũy kế"
+      ],
+      "recommendations_proposals": [
+        "kiến nghị",
+        "đề xuất",
+        "đề nghị"
+      ]
+    },
+    "merge_rules": [
+      {
+        "if_both": [
+          "implementation_results",
+          "highlights"
+        ],
+        "allow_merge_title": "Kết quả thực hiện và điểm nổi bật"
+      },
+      {
+        "if_both": [
+          "limitations_causes",
+          "risks_warnings"
+        ],
+        "allow_merge_title": "Tồn tại, rủi ro và nhắc nhở"
+      },
+      {
+        "if_both": [
+          "measures_solutions",
+          "implementation_organization"
+        ],
+        "allow_merge_title": "Giải pháp và tổ chức thực hiện"
+      }
+    ]
+  },
+  "output_contract": {
+    "report_title": "string",
+    "document_type": "one document type id",
+    "subtitle": "string",
+    "author_or_unit": "string",
+    "reporting_period": "string|null",
+    "sections": [
+      {
+        "concept_id": "one concept id above",
+        "heading": "preferred heading or custom heading",
+        "intent": "intent string",
+        "summary": "one concise paragraph",
+        "bullets": [
+          "short bullet, evidence-grounded"
+        ],
+        "metrics": [
+          {
+            "name": "string",
+            "value": "string",
+            "period": "string",
+            "comment": "string"
+          }
+        ],
+        "table": {
+          "headers": [
+            "col"
+          ],
+          "rows": [
+            [
+              "cell"
+            ]
+          ]
+        },
+        "milestones": [
+          {
+            "date": "string",
+            "heading": "string",
+            "text": "string"
+          }
+        ],
+        "tasks": [
+          {
+            "owner": "string",
+            "task": "string",
+            "deadline": "string",
+            "deliverable": "string"
+          }
+        ],
+        "takeaway": "one sentence"
+      }
+    ]
+  },
+  "prompting_guidance": {
+    "style": "Vietnamese administrative but concise; avoid fabricating facts; preserve numbers, dates, units, agency names.",
+    "anti_hallucination": [
+      "Only use facts present in the source.",
+      "If a heading has no evidence, omit it or mark as not found.",
+      "Do not invent deadlines, owners, metrics, or conclusions."
+    ],
+    "extraction_order": [
+      "identify document type",
+      "detect section signals",
+      "extract evidence into ontology concepts",
+      "select strongest headings",
+      "compress into slide-ready bullets"
+    ]
+  },
+  "usage_policy": {
+    "document_outline_first": true,
+    "ontology_role": "reference_only",
+    "do_not_force_missing_sections": true,
+    "subtitle_policy": "Only create subtitles when they express substantive meaning; never use metadata such as task id, source heading, layout, ontology, renderer.",
+    "summary_policy": "Do not end summaries with ellipsis; prefer complete concise sentences."
+  },
+  "exclusion_rules": {
+    "ignore_opening_motto": true,
+    "ignore_recipients_tail": true,
+    "ignored_heading_patterns": [
+      "^cộng\\s+hòa\\s+xã\\s+hội\\s+chủ\\s+nghĩa\\s+việt\\s+nam$",
+      "^độc\\s+lập\\s*[-–—]\\s*tự\\s+do\\s*[-–—]\\s*hạnh\\s+phúc$",
+      "^nơi\\s+nhận\\s*:?$",
+      "^kính\\s+gửi\\s*:?$",
+      "^số\\s*[:：]\\s*.*$",
+      "^số\\s+.*$",
+      "^.*cộng\\s+h[oòóọõỏôồốộỗổơờớợỡở][aàáạãả]\\s+x[aã]\\s+h[oộòóọõỏ]i\\s+ch[uủ]\\s+ngh[iĩ]a\\s+vi[eệ]t\\s+nam.*$",
+      "^tm\\.?\\s+.*$",
+      "^kt\\.?\\s+.*$",
+      "^chủ\\s+tịch.*$",
+      "^phó\\s+chủ\\s+tịch.*$",
+      "^người\\s+ký.*$",
+      "^\\(\\s*đã\\s+ký\\s*\\).*$"
+    ],
+    "ignored_sections": [
+      {
+        "name": "Quốc hiệu và tiêu ngữ",
+        "examples": [
+          "CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM",
+          "Độc lập - Tự do - Hạnh phúc"
+        ],
+        "reason": "Nghi thức mở đầu, không phải nội dung báo cáo."
+      },
+      {
+        "name": "Nơi nhận",
+        "examples": [
+          "Nơi nhận:",
+          "- Như trên;",
+          "- Lưu: VT."
+        ],
+        "reason": "Danh sách phát hành cuối văn bản, không tạo slide nội dung."
+      }
+    ],
+    "ignore_document_number_header": true,
+    "ignore_opening_state_title_and_motto": true,
+    "ignore_signature_block": true,
+    "description": "Loại bỏ boilerplate hành chính: Số văn bản, quốc hiệu/tiêu ngữ, nơi nhận, ký tá/chức danh cuối văn bản; không dùng các dòng này để tóm tắt hoặc tạo slide."
+  }
+}

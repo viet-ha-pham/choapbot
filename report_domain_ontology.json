@@ -1,0 +1,91 @@
+{
+  "ontology_id": "report-domain-ontology-v0.1",
+  "description": "Ontology nghiệp vụ báo cáo dùng để buộc LLM tóm tắt theo các đề mục nghiệp vụ ổn định.",
+  "concepts": [
+    {
+      "id": "executive_summary",
+      "preferred_heading": "Tóm tắt điều hành",
+      "intent": "summarize_core_message",
+      "extraction_goal": "Nêu thông điệp chính, kết luận lớn, và ý nghĩa quản trị.",
+      "max_bullets": 5
+    },
+    {
+      "id": "context",
+      "preferred_heading": "Bối cảnh và vấn đề",
+      "intent": "explain_context",
+      "extraction_goal": "Nêu bối cảnh, vấn đề hiện tại, nguyên nhân hoặc động lực phát sinh báo cáo.",
+      "max_bullets": 6
+    },
+    {
+      "id": "findings",
+      "preferred_heading": "Phát hiện chính",
+      "intent": "present_findings",
+      "extraction_goal": "Liệt kê các phát hiện, số liệu, xu hướng, điểm bất thường, bằng chứng quan trọng.",
+      "max_bullets": 7
+    },
+    {
+      "id": "comparison",
+      "preferred_heading": "So sánh / đối chiếu",
+      "intent": "compare_options",
+      "extraction_goal": "Nếu tài liệu có các phương án, nhóm đối tượng hoặc giai đoạn, trích xuất so sánh thành bảng.",
+      "max_rows": 6
+    },
+    {
+      "id": "risks",
+      "preferred_heading": "Rủi ro và điểm cần chú ý",
+      "intent": "highlight_risks",
+      "extraction_goal": "Nêu rủi ro, hạn chế, giả định yếu, điểm cần kiểm tra thêm.",
+      "max_bullets": 6
+    },
+    {
+      "id": "recommendations",
+      "preferred_heading": "Khuyến nghị",
+      "intent": "recommend_actions",
+      "extraction_goal": "Đề xuất hành động, ưu tiên triển khai, quyết định cần đưa ra.",
+      "max_bullets": 6
+    },
+    {
+      "id": "roadmap",
+      "preferred_heading": "Lộ trình / bước tiếp theo",
+      "intent": "show_progression",
+      "extraction_goal": "Tách các bước theo thời gian hoặc theo trình tự triển khai nếu có.",
+      "max_milestones": 6
+    }
+  ],
+  "output_contract": {
+    "report_title": "string",
+    "subtitle": "string",
+    "author": "string",
+    "sections": [
+      {
+        "concept_id": "one concept id above",
+        "heading": "preferred heading or custom heading",
+        "summary": "one paragraph",
+        "bullets": [
+          "short bullet"
+        ],
+        "table": {
+          "headers": [
+            "col"
+          ],
+          "rows": [
+            [
+              "cell"
+            ]
+          ]
+        },
+        "milestones": [
+          {
+            "date": "Q1",
+            "heading": "Step",
+            "text": "Detail"
+          }
+        ],
+        "conclusion": "short takeaway",
+        "evidence": [
+          "short source clue, no long quote"
+        ]
+      }
+    ]
+  }
+}

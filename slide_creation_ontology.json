@@ -1,0 +1,88 @@
+{
+  "ontology_id": "slide-creation-ontology-v0.1",
+  "description": "Ontology nghiệp vụ tạo slide: mô tả intent, tín hiệu nội dung và heuristic chọn layout.",
+  "concepts": {
+    "SlideIntent": [
+      "cover",
+      "section_divider",
+      "summarize_core_message",
+      "explain_context",
+      "present_findings",
+      "compare_options",
+      "highlight_risks",
+      "recommend_actions",
+      "show_progression"
+    ],
+    "ContentSignal": [
+      "has_bullets",
+      "has_table",
+      "has_milestones",
+      "has_many_items",
+      "has_takeaway",
+      "needs_emphasis"
+    ],
+    "SlideObject": [
+      "title",
+      "subtitle",
+      "bullets",
+      "table",
+      "timeline",
+      "conclusion",
+      "notes"
+    ]
+  },
+  "planning_rules": [
+    {
+      "name": "table_first",
+      "when": {
+        "has_table": true
+      },
+      "prefer_intent": "compare_options",
+      "layout_candidates": [
+        "title-table"
+      ]
+    },
+    {
+      "name": "milestones_to_timeline",
+      "when": {
+        "has_milestones": true
+      },
+      "prefer_intent": "show_progression",
+      "layout_candidates": [
+        "timeline",
+        "stair-progress",
+        "title-bullets"
+      ]
+    },
+    {
+      "name": "bullets_default",
+      "when": {
+        "has_bullets": true
+      },
+      "layout_candidates": [
+        "title-bullets"
+      ]
+    },
+    {
+      "name": "many_items_grid",
+      "when": {
+        "has_many_items": true
+      },
+      "layout_candidates": [
+        "grid-4",
+        "grid-6",
+        "title-bullets"
+      ]
+    }
+  ],
+  "quality_constraints": {
+    "max_bullets_per_slide": 6,
+    "max_table_rows_per_slide": 8,
+    "prefer_conclusion_box_for": [
+      "executive_summary",
+      "recommendations",
+      "risks"
+    ],
+    "split_long_sections": true
+  }
+}

@@ -1,0 +1,303 @@
+{
+  "registry_id": "rich-renderer-layout-registry-v1",
+  "role": "renderer_capability_registry",
+  "layouts": [
+    {
+      "id": "title-bullets",
+      "intents": [
+        "summarize_core_message",
+        "explain_context",
+        "highlight_risks"
+      ],
+      "supported_blocks": [
+        "title",
+        "subtitle",
+        "bullets",
+        "conclusion"
+      ],
+      "capacity": {
+        "min_items": 1,
+        "max_items": 8
+      },
+      "data_shapes": [
+        "bullets",
+        "icon_bullets"
+      ],
+      "description": "Safe general title + bullets layout."
+    },
+    {
+      "id": "two-column",
+      "intents": [
+        "compare",
+        "explain_context"
+      ],
+      "supported_blocks": [
+        "title",
+        "left",
+        "right"
+      ],
+      "capacity": {
+        "max_columns": 2
+      },
+      "data_shapes": [
+        "two_column_text"
+      ],
+      "description": "Two text columns."
+    },
+    {
+      "id": "title-table",
+      "intents": [
+        "assign_responsibilities",
+        "show_metrics"
+      ],
+      "supported_blocks": [
+        "title",
+        "table"
+      ],
+      "capacity": {
+        "max_rows": 12,
+        "max_cols": 5
+      },
+      "data_shapes": [
+        "table"
+      ],
+      "description": "Title plus table."
+    },
+    {
+      "id": "grid-3",
+      "intents": [
+        "present_findings",
+        "highlight_risks"
+      ],
+      "supported_blocks": [
+        "title",
+        "cells"
+      ],
+      "capacity": {
+        "max_cells": 3
+      },
+      "data_shapes": [
+        "cards"
+      ],
+      "description": "Three card grid."
+    },
+    {
+      "id": "grid-4",
+      "intents": [
+        "present_findings",
+        "highlight_risks",
+        "show_metrics"
+      ],
+      "supported_blocks": [
+        "title",
+        "cells"
+      ],
+      "capacity": {
+        "max_cells": 4
+      },
+      "data_shapes": [
+        "cards"
+      ],
+      "description": "Four card grid."
+    },
+    {
+      "id": "grid-5",
+      "intents": [
+        "present_findings"
+      ],
+      "supported_blocks": [
+        "title",
+        "cells"
+      ],
+      "capacity": {
+        "max_cells": 5
+      },
+      "data_shapes": [
+        "cards"
+      ],
+      "description": "Five card grid."
+    },
+    {
+      "id": "grid-6",
+      "intents": [
+        "present_findings"
+      ],
+      "supported_blocks": [
+        "title",
+        "cells"
+      ],
+      "capacity": {
+        "max_cells": 6
+      },
+      "data_shapes": [
+        "cards"
+      ],
+      "description": "Six card grid."
+    },
+    {
+      "id": "grid-4x2",
+      "intents": [
+        "present_findings",
+        "show_metrics"
+      ],
+      "supported_blocks": [
+        "title",
+        "cells"
+      ],
+      "capacity": {
+        "max_cells": 8
+      },
+      "data_shapes": [
+        "cards"
+      ],
+      "description": "4x2 card grid."
+    },
+    {
+      "id": "numbered-columns-3",
+      "intents": [
+        "recommend_actions",
+        "organize_implementation"
+      ],
+      "supported_blocks": [
+        "title",
+        "columns"
+      ],
+      "capacity": {
+        "max_columns": 3
+      },
+      "data_shapes": [
+        "numbered_columns"
+      ],
+      "description": "Three numbered columns."
+    },
+    {
+      "id": "numbered-columns-4",
+      "intents": [
+        "recommend_actions",
+        "organize_implementation"
+      ],
+      "supported_blocks": [
+        "title",
+        "columns"
+      ],
+      "capacity": {
+        "max_columns": 4
+      },
+      "data_shapes": [
+        "numbered_columns"
+      ],
+      "description": "Four numbered columns."
+    },
+    {
+      "id": "numbered-columns-5",
+      "intents": [
+        "recommend_actions"
+      ],
+      "supported_blocks": [
+        "title",
+        "columns"
+      ],
+      "capacity": {
+        "max_columns": 5
+      },
+      "data_shapes": [
+        "numbered_columns"
+      ],
+      "description": "Five numbered columns."
+    },
+    {
+      "id": "numbered-columns-6",
+      "intents": [
+        "recommend_actions"
+      ],
+      "supported_blocks": [
+        "title",
+        "columns"
+      ],
+      "capacity": {
+        "max_columns": 6
+      },
+      "data_shapes": [
+        "numbered_columns"
+      ],
+      "description": "Six numbered columns."
+    },
+    {
+      "id": "timeline",
+      "intents": [
+        "show_progression"
+      ],
+      "supported_blocks": [
+        "title",
+        "milestones"
+      ],
+      "capacity": {
+        "max_milestones": 7
+      },
+      "data_shapes": [
+        "timeline"
+      ],
+      "description": "Horizontal timeline with milestones."
+    },
+    {
+      "id": "stair-progress",
+      "intents": [
+        "show_progression",
+        "organize_implementation"
+      ],
+      "supported_blocks": [
+        "title",
+        "steps"
+      ],
+      "capacity": {
+        "max_steps": 6
+      },
+      "data_shapes": [
+        "steps"
+      ],
+      "description": "Stair progress layout."
+    },
+    {
+      "id": "stacked-stairs",
+      "intents": [
+        "organize_implementation",
+        "recommend_actions"
+      ],
+      "supported_blocks": [
+        "title",
+        "steps"
+      ],
+      "capacity": {
+        "max_steps": 6
+      },
+      "data_shapes": [
+        "steps"
+      ],
+      "description": "Stacked shrinking stair cards."
+    },
+    {
+      "id": "conclusion",
+      "intents": [
+        "summarize_core_message",
+        "recommend_actions"
+      ],
+      "supported_blocks": [
+        "title",
+        "bullets",
+        "conclusion"
+      ],
+      "capacity": {
+        "max_items": 6
+      },
+      "data_shapes": [
+        "bullets"
+      ],
+      "description": "Bullets plus highlighted conclusion box."
+    }
+  ],
+  "selection_policy": {
+    "prefer_exact_intent_match": true,
+    "respect_capacity": true,
+    "fallback_layout": "title-bullets"
+  }
+}

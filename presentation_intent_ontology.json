@@ -1,0 +1,115 @@
+{
+  "ontology_id": "presentation-intent-ontology-v1",
+  "role": "infer_slide_intent_from_existing_task",
+  "principles": [
+    "Do not decide document section structure.",
+    "Only infer rhetorical intent for a real source unit.",
+    "Return intent candidates that layout registry can satisfy."
+  ],
+  "intents": [
+    {
+      "id": "explain_context",
+      "labels": [
+        "bối cảnh",
+        "đặc điểm tình hình",
+        "thực trạng",
+        "tình hình"
+      ],
+      "description": "Giải thích bối cảnh hoặc hiện trạng.",
+      "preferred_content_shape": "bullets"
+    },
+    {
+      "id": "summarize_core_message",
+      "labels": [
+        "tóm tắt",
+        "khái quát",
+        "tổng quan",
+        "nội dung chính"
+      ],
+      "description": "Tóm tắt thông điệp cốt lõi.",
+      "preferred_content_shape": "bullets"
+    },
+    {
+      "id": "present_findings",
+      "labels": [
+        "kết quả",
+        "kết quả nổi bật",
+        "phát hiện",
+        "điểm nổi bật"
+      ],
+      "description": "Trình bày kết quả hoặc phát hiện chính.",
+      "preferred_content_shape": "cards"
+    },
+    {
+      "id": "highlight_risks",
+      "labels": [
+        "hạn chế",
+        "rủi ro",
+        "cảnh báo",
+        "nhắc nhở",
+        "khó khăn",
+        "vướng mắc"
+      ],
+      "description": "Làm nổi bật rủi ro, hạn chế, nhắc nhở.",
+      "preferred_content_shape": "icon_bullets"
+    },
+    {
+      "id": "recommend_actions",
+      "labels": [
+        "biện pháp",
+        "giải pháp",
+        "phương hướng",
+        "kiến nghị",
+        "đề xuất"
+      ],
+      "description": "Đề xuất giải pháp hoặc hành động.",
+      "preferred_content_shape": "numbered_columns"
+    },
+    {
+      "id": "assign_responsibilities",
+      "labels": [
+        "phân công",
+        "trách nhiệm",
+        "đơn vị chủ trì",
+        "đơn vị phối hợp"
+      ],
+      "description": "Trình bày nhiệm vụ và đơn vị chịu trách nhiệm.",
+      "preferred_content_shape": "table"
+    },
+    {
+      "id": "show_progression",
+      "labels": [
+        "tiến độ",
+        "lộ trình",
+        "giai đoạn",
+        "mốc thời gian"
+      ],
+      "description": "Trình bày tiến trình, timeline hoặc roadmap.",
+      "preferred_content_shape": "timeline_or_steps"
+    },
+    {
+      "id": "organize_implementation",
+      "labels": [
+        "tổ chức thực hiện",
+        "triển khai",
+        "kiểm tra",
+        "đôn đốc"
+      ],
+      "description": "Trình bày cách tổ chức triển khai.",
+      "preferred_content_shape": "steps"
+    },
+    {
+      "id": "show_metrics",
+      "labels": [
+        "số liệu",
+        "chỉ tiêu",
+        "tỷ lệ",
+        "kinh phí",
+        "nguồn lực"
+      ],
+      "description": "Trình bày số liệu/chỉ tiêu dưới dạng bảng hoặc bullet ngắn.",
+      "preferred_content_shape": "table_or_cards"
+    }
+  ],
+  "fallback_intent": "summarize_core_message"
+}

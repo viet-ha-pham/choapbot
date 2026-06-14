@@ -1,0 +1,22 @@
+leadership_mention:
+  very_hot:
+    weight: 5
+    keywords:
+      - Tổng Bí thư
+      - Chủ tịch nước
+      - Thủ tướng Chính phủ
+
+policy_keywords:
+  direct_command:
+    weight: 5
+    keywords:
+      - yêu cầu
+      - chỉ đạo
+      - giao
+
+strategic_keywords:
+  national_strategy:
+    weight: 4
+    keywords:
+      - chiến lược
+      - đột phá chiến lược

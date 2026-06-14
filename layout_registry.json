@@ -1,0 +1,134 @@
+{
+  "registry_id": "pml-renderer-layout-registry-v0.1",
+  "description": "Registry mô tả layout renderer hỗ trợ, intent phù hợp, block input, capacity, và tín hiệu lựa chọn.",
+  "layouts": [
+    {
+      "id": "title-bullets",
+      "family": "content",
+      "intent": [
+        "summarize_core_message",
+        "explain_context",
+        "present_findings",
+        "highlight_risks",
+        "recommend_actions"
+      ],
+      "supported_blocks": [
+        "title",
+        "subtitle",
+        "bullets",
+        "conclusion",
+        "notes",
+        "footer"
+      ],
+      "content_capacity": {
+        "bullets_min": 2,
+        "bullets_max": 7,
+        "supports_nested_bullets": true,
+        "supports_icon_bullets": true
+      },
+      "selection_signals": [
+        "has_bullets",
+        "has_takeaway",
+        "no_table"
+      ],
+      "score": 0.75
+    },
+    {
+      "id": "title-table",
+      "family": "data",
+      "intent": [
+        "compare_options",
+        "present_findings",
+        "summarize_metrics"
+      ],
+      "supported_blocks": [
+        "title",
+        "subtitle",
+        "table",
+        "conclusion",
+        "notes"
+      ],
+      "content_capacity": {
+        "rows_max": 10,
+        "columns_max": 5
+      },
+      "selection_signals": [
+        "has_table",
+        "comparison",
+        "matrix"
+      ],
+      "score": 0.95
+    },
+    {
+      "id": "timeline",
+      "family": "process",
+      "intent": [
+        "show_progression",
+        "show_roadmap"
+      ],
+      "supported_blocks": [
+        "title",
+        "subtitle",
+        "milestones",
+        "notes"
+      ],
+      "content_capacity": {
+        "milestones_min": 3,
+        "milestones_max": 6
+      },
+      "selection_signals": [
+        "has_milestones",
+        "time_sequence",
+        "roadmap"
+      ],
+      "fallback": "title-bullets",
+      "score": 0.9
+    },
+    {
+      "id": "grid-4",
+      "family": "cards",
+      "intent": [
+        "present_findings",
+        "group_items"
+      ],
+      "supported_blocks": [
+        "title",
+        "subtitle",
+        "cells",
+        "notes"
+      ],
+      "content_capacity": {
+        "cells": 4
+      },
+      "selection_signals": [
+        "has_many_items",
+        "grouped_items"
+      ],
+      "fallback": "title-bullets",
+      "score": 0.65
+    },
+    {
+      "id": "grid-6",
+      "family": "cards",
+      "intent": [
+        "present_findings",
+        "group_items"
+      ],
+      "supported_blocks": [
+        "title",
+        "subtitle",
+        "cells",
+        "notes"
+      ],
+      "content_capacity": {
+        "cells": 6
+      },
+      "selection_signals": [
+        "has_many_items",
+        "grouped_items"
+      ],
+      "fallback": "title-bullets",
+      "score": 0.6
+    }
+  ]
+}

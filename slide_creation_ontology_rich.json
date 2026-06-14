@@ -1,0 +1,137 @@
+{
+  "ontology_id": "slide-creation-ontology-v0.2-rich",
+  "description": "Ontology nghiệp vụ tạo slide: dùng ontology báo cáo + layout registry để lập kế hoạch deck theo task, chọn layout, kiểm tra tải nhận thức và tạo PML.",
+  "concepts": {
+    "DeckComponent": ["cover", "section_header", "content_slide", "continuation_slide", "appendix_slide"],
+    "SlideIntent": [
+      "cover", "section_divider", "summarize_core_message", "explain_context", "state_objectives", "define_scope",
+      "present_results", "highlight_achievements", "analyze_limitations", "highlight_risks_and_reminders",
+      "recommend_solutions", "assign_tasks", "organize_implementation", "show_progression", "summarize_metrics",
+      "compare_options", "propose_recommendations", "conclude_takeaway", "show_process", "show_structure"
+    ],
+    "ContentSignal": [
+      "has_bullets", "has_nested_bullets", "has_table", "has_metrics", "has_milestones", "has_tasks",
+      "has_many_items", "has_takeaway", "needs_emphasis", "has_comparison", "has_sequence", "has_warning",
+      "has_image", "has_caption", "has_links", "long_text", "dense_content"
+    ],
+    "SlideObject": [
+      "title", "subtitle", "bullets", "nested_bullets", "icon_bullets", "table", "timeline", "stair_steps",
+      "grid_cards", "numbered_columns", "conclusion_box", "image", "caption", "footer", "notes", "link"
+    ],
+    "QualityDimension": [
+      "coverage", "faithfulness", "readability", "layout_fit", "visual_hierarchy", "actionability", "executive_relevance"
+    ]
+  },
+  "intent_to_layout_strategy": [
+    {
+      "intent": "summarize_core_message",
+      "preferred_layouts": ["title-bullets", "numbered-columns-3", "grid-3"],
+      "reason": "Tóm tắt điều hành cần ít điểm, dễ đọc, có conclusion box nếu có takeaway."
+    },
+    {
+      "intent": "explain_context",
+      "preferred_layouts": ["title-bullets", "text-image", "grid-4"],
+      "reason": "Bối cảnh/tình hình thường là bullet ngắn hoặc nhóm yếu tố."
+    },
+    {
+      "intent": "state_objectives",
+      "preferred_layouts": ["numbered-columns-3", "numbered-columns-4", "title-bullets"],
+      "reason": "Mục tiêu/yêu cầu hợp với các cột đánh số hoặc bullet có thứ tự."
+    },
+    {
+      "intent": "present_results",
+      "preferred_layouts": ["grid-4", "grid-6", "title-table", "numbered-columns-4"],
+      "reason": "Kết quả có thể là nhóm card, bảng chỉ tiêu hoặc điểm nổi bật."
+    },
+    {
+      "intent": "highlight_achievements",
+      "preferred_layouts": ["numbered-columns-3", "grid-3", "hero-image", "title-bullets"],
+      "reason": "Kết quả nổi bật cần nhấn mạnh trực quan và ít điểm."
+    },
+    {
+      "intent": "analyze_limitations",
+      "preferred_layouts": ["title-bullets", "grid-4", "title-table"],
+      "reason": "Tồn tại/nguyên nhân thường là bullet hoặc bảng nguyên nhân - tác động."
+    },
+    {
+      "intent": "highlight_risks_and_reminders",
+      "preferred_layouts": ["title-bullets", "grid-3", "conclusion_box"],
+      "reason": "Nhắc nhở/rủi ro cần icon bullet, màu cảnh báo và kết luận rõ."
+    },
+    {
+      "intent": "recommend_solutions",
+      "preferred_layouts": ["numbered-columns-4", "stair-progress", "title-bullets"],
+      "reason": "Biện pháp/giải pháp hợp dạng bước hoặc cột hành động."
+    },
+    {
+      "intent": "assign_tasks",
+      "preferred_layouts": ["title-table", "grid-4x2"],
+      "reason": "Phân công nên dùng bảng owner-task-deadline hoặc grid theo đơn vị."
+    },
+    {
+      "intent": "organize_implementation",
+      "preferred_layouts": ["stair-progress", "stacked-stairs", "timeline", "title-bullets"],
+      "reason": "Tổ chức thực hiện thường có trình tự, tầng trách nhiệm hoặc cơ chế phối hợp."
+    },
+    {
+      "intent": "show_progression",
+      "preferred_layouts": ["timeline", "stair-progress", "stacked-stairs"],
+      "reason": "Tiến độ/lộ trình cần biểu diễn thứ tự thời gian."
+    },
+    {
+      "intent": "summarize_metrics",
+      "preferred_layouts": ["title-table", "grid-4", "grid-6"],
+      "reason": "Số liệu/chỉ tiêu cần bảng hoặc card chỉ tiêu."
+    },
+    {
+      "intent": "compare_options",
+      "preferred_layouts": ["title-table", "two-column", "two-images"],
+      "reason": "So sánh hợp bảng, hai cột hoặc hai ảnh minh họa."
+    },
+    {
+      "intent": "conclude_takeaway",
+      "preferred_layouts": ["title-bullets", "hero-image", "image-caption"],
+      "reason": "Kết luận cần thông điệp cuối rõ, có thể dùng conclusion box."
+    }
+  ],
+  "planning_rules": [
+    {"name": "tasks_to_table", "when": {"has_tasks": true}, "layout_candidates": ["title-table"], "required_blocks": ["table"]},
+    {"name": "metrics_to_table_or_cards", "when": {"has_metrics": true}, "layout_candidates": ["title-table", "grid-4", "grid-6"]},
+    {"name": "timeline_for_dates", "when": {"has_milestones": true}, "layout_candidates": ["timeline", "stair-progress"]},
+    {"name": "many_items_to_grid", "when": {"has_many_items": true}, "layout_candidates": ["grid-4", "grid-6", "grid-4x2"]},
+    {"name": "few_ordered_actions_to_numbered_columns", "when": {"has_sequence": true, "has_bullets": true}, "layout_candidates": ["numbered-columns-3", "numbered-columns-4", "stair-progress"]},
+    {"name": "warning_to_icon_bullets", "when": {"has_warning": true}, "layout_candidates": ["title-bullets", "grid-3"], "style_hints": {"bullet_icon": "warning", "use_conclusion_box": true}},
+    {"name": "dense_content_paginate", "when": {"dense_content": true}, "constraints": {"overflow": "paginate", "max_lines": 7, "min_size": 13}},
+    {"name": "takeaway_to_conclusion_box", "when": {"has_takeaway": true}, "required_blocks": ["conclusion"]}
+  ],
+  "cognitive_load_policy": {
+    "max_main_points_per_slide": 6,
+    "max_nested_levels": 3,
+    "max_words_per_bullet": 22,
+    "max_table_columns": 5,
+    "max_table_rows_without_pagination": 8,
+    "prefer_split_when": ["more_than_8_bullets", "table_more_than_10_rows", "timeline_more_than_6_milestones", "card_text_overflow"]
+  },
+  "task_decomposition_policy": {
+    "task_types": [
+      "extract_section", "normalize_section", "choose_layout", "build_slide_fragment", "validate_fragment", "repair_fragment", "aggregate_deck"
+    ],
+    "one_task_per": ["report ontology concept selected", "large table chunk", "timeline chunk", "appendix candidate"],
+    "task_output_contract": {
+      "task_id": "string",
+      "concept_id": "string",
+      "slide_intent": "string",
+      "layout_id": "string",
+      "pml_fragment": "string",
+      "validation": {"ok": "boolean", "issues": ["string"]}
+    }
+  },
+  "validation_rules": [
+    "Every slide must have title or be an image-caption slide with caption.",
+    "Layout id must exist in layout_registry.json.",
+    "Blocks used must be supported by selected layout.",
+    "Do not put table data into bullet layout if title-table is available.",
+    "If text overflow is likely, apply PCL paginate/shrink or split task.",
+    "For G-Eval markdown, preserve slide title, section, intent, conclusion, and evidence-grounded bullets."
+  ]
+}

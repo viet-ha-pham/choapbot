@@ -2,7 +2,21 @@ import streamlit as st
 import pickle
 import time
 import random
+import requests
+import json
+import datetime
 
+import streamlit.components.v1 as components
+from pathlib import Path
+
+html = Path("demo_output.html").read_text("utf-8")
+
+components.html(
+    html,
+    width=None,
+    height=1000,
+    scrolling=True
+)
 
 with open("vie_cho_dct_2023.pkl", "rb") as f:
     vie_cho_dct = pickle.load(f)
@@ -44,6 +58,28 @@ def save():
     msg += st.session_state.messages[-1]["content"]
     with open("hay.txt", "a", encoding="utf-8") as f:
         f.write(msg + "\n")
+
+    #tts(st.session_state.messages[-1]["content"])
+
+
+def tts(txt):
+    url = "https://viettelai.vn/tts/speech_synthesis"
+    payload = json.dumps({
+    "text": txt,
+    "voice": "hn-namkhanh",
+    "speed": 1.1,
+    "tts_return_option": 3,
+    "token": "dd516aa066ddd71731a9b2e7a0819e0b",
+    "without_filter": False
+    })
+    headers = {
+    'accept': '*/*',
+    'Content-Type': 'application/json'
+    }
+    response = requests.request("POST", url, headers=headers, data=payload)
+    print(response.status_code)
+    with open(f'E:/choap {datetime.datetime.now().strftime("%d %m %Y %H %M %S")}.mp3', "wb") as file:
+        file.write(response.content)
 
 
 def clear_chat_history():

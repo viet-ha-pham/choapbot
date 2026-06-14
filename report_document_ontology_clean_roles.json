@@ -1,0 +1,152 @@
+{
+  "ontology_id": "report-document-ontology-clean-role-v1",
+  "role": "classify_existing_document_units_only",
+  "principles": [
+    "Do not create sections from ontology concepts.",
+    "Do not override the source document outline.",
+    "Use ontology only to classify real headings/content and remove boilerplate."
+  ],
+  "exclusion_rules": {
+    "ignore_opening_motto": true,
+    "ignore_recipients_tail": true,
+    "ignored_line_patterns": [
+      "^\\s*số\\s*[:：]?\\s*.*$",
+      "^\\s*cộng\\s+h[oòóọõỏôồốộỗổơờớợỡở][aàáạãả]\\s+x[aã]\\s+h[oộòóọõỏ]i\\s+ch[uủ]\\s+ngh[iĩ]a\\s+vi[eệ]t\\s+nam\\s*$",
+      "^\\s*độc\\s+lập\\s*[-–—]\\s*tự\\s+do\\s*[-–—]\\s*hạnh\\s+phúc\\s*$",
+      "^\\s*nơi\\s+nhận\\s*:?\\s*$",
+      "^\\s*kính\\s+gửi\\s*:?\\s*$",
+      "^\\s*tm\\.?\\s+.*$",
+      "^\\s*kt\\.?\\s+.*$",
+      "^\\s*chủ\\s+tịch\\s*$",
+      "^\\s*người\\s+ký\\s*$"
+    ],
+    "tail_heading_patterns": [
+      "^\\s*nơi\\s+nhận\\s*:?\\s*$"
+    ]
+  },
+  "concepts": [
+    {
+      "id": "current_situation",
+      "labels": [
+        "đặc điểm tình hình",
+        "tình hình",
+        "bối cảnh",
+        "thực trạng"
+      ],
+      "description": "Mô tả bối cảnh, điều kiện, hiện trạng trước khi báo cáo kết quả hoặc nhiệm vụ."
+    },
+    {
+      "id": "objectives_requirements",
+      "labels": [
+        "mục tiêu",
+        "yêu cầu",
+        "mục đích",
+        "quan điểm chỉ đạo"
+      ],
+      "description": "Mục tiêu, yêu cầu, định hướng chỉ đạo của văn bản."
+    },
+    {
+      "id": "implementation_results",
+      "labels": [
+        "kết quả thực hiện",
+        "kết quả",
+        "kết quả đạt được"
+      ],
+      "description": "Kết quả thực hiện chung, thành tựu và sản phẩm đầu ra."
+    },
+    {
+      "id": "highlights",
+      "labels": [
+        "kết quả nổi bật",
+        "điểm nổi bật",
+        "nổi bật",
+        "thành tựu nổi bật"
+      ],
+      "description": "Các kết quả đáng nhấn mạnh, thành tích hoặc điểm sáng."
+    },
+    {
+      "id": "limitations_causes",
+      "labels": [
+        "tồn tại",
+        "hạn chế",
+        "nguyên nhân",
+        "khó khăn",
+        "vướng mắc"
+      ],
+      "description": "Tồn tại, hạn chế, nguyên nhân, khó khăn và vướng mắc."
+    },
+    {
+      "id": "warnings_risks",
+      "labels": [
+        "nhắc nhở",
+        "lưu ý",
+        "cảnh báo",
+        "rủi ro",
+        "điểm cần chú ý"
+      ],
+      "description": "Các nhắc nhở, cảnh báo, rủi ro hoặc yêu cầu chú ý."
+    },
+    {
+      "id": "measures_solutions",
+      "labels": [
+        "biện pháp",
+        "giải pháp",
+        "phương hướng",
+        "nhiệm vụ trọng tâm"
+      ],
+      "description": "Biện pháp, giải pháp, phương hướng hoặc nhóm hành động cần triển khai."
+    },
+    {
+      "id": "tasks_assignment",
+      "labels": [
+        "phân công",
+        "nhiệm vụ",
+        "trách nhiệm",
+        "đơn vị chủ trì",
+        "đơn vị phối hợp"
+      ],
+      "description": "Nhiệm vụ, phân công trách nhiệm, đơn vị chủ trì/phối hợp."
+    },
+    {
+      "id": "implementation_organization",
+      "labels": [
+        "tổ chức thực hiện",
+        "triển khai thực hiện",
+        "thực hiện"
+      ],
+      "description": "Cách thức tổ chức, chỉ đạo, kiểm tra, đôn đốc thực hiện."
+    },
+    {
+      "id": "timeline_progress",
+      "labels": [
+        "tiến độ",
+        "lộ trình",
+        "thời gian",
+        "giai đoạn",
+        "mốc"
+      ],
+      "description": "Tiến độ, lộ trình, mốc thời gian và các giai đoạn thực hiện."
+    },
+    {
+      "id": "data_metrics",
+      "labels": [
+        "số liệu",
+        "chỉ tiêu",
+        "tỷ lệ",
+        "kinh phí",
+        "dự toán",
+        "nguồn lực"
+      ],
+      "description": "Số liệu, chỉ tiêu định lượng, nguồn lực, kinh phí."
+    },
+    {
+      "id": "proposals_recommendations",
+      "labels": [
+        "kiến nghị",
+        "đề xuất",
+        "đề nghị"
+      ],
+      "description": "Kiến nghị, đề xuất hoặc yêu cầu cấp có thẩm quyền xem xét."
+    }
+  ]
+}

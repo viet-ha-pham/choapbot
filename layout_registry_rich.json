@@ -1,0 +1,1106 @@
+{
+  "version": "0.3-rich",
+  "description": "Layout registry đầy đủ hơn cho PML/PSL renderer, dùng cho slide planner chọn layout theo intent và đặc điểm nội dung.",
+  "selection_policy": {
+    "priority_order": [
+      "respect_explicit_document_heading",
+      "match_content_structure",
+      "match_intent",
+      "fit_capacity",
+      "avoid_empty_or_overflow_slides"
+    ],
+    "ontology_role": "reference_only; do not create ontology sections absent from source document",
+    "fallback_layouts": [
+      "title-bullets",
+      "two-column",
+      "title-table"
+    ],
+    "avoid_subtitle_when": [
+      "subtitle is metadata",
+      "subtitle duplicates title",
+      "subtitle is just ontology/layout/task label"
+    ]
+  },
+  "layout_families": {
+    "presentation": "deck-level cover pages",
+    "section": "section dividers",
+    "content": "text-centric slides",
+    "mixed": "text plus image/table combinations",
+    "image": "visual-centric slides",
+    "grid": "multi-card layouts",
+    "process": "sequence/progress/timeline layouts",
+    "table": "tabular data layouts"
+  },
+  "layouts": [
+    {
+      "id": "title-slide",
+      "family": "presentation",
+      "intent": [
+        "cover",
+        "opening"
+      ],
+      "description": "Trang bìa của deck; dùng title chính, subtitle/author/date nếu có.",
+      "required_blocks": [
+        "title"
+      ],
+      "optional_blocks": [
+        "subtitle",
+        "author",
+        "date",
+        "background_image"
+      ],
+      "best_for": [
+        "mở đầu báo cáo",
+        "tên văn bản",
+        "chủ đề chính"
+      ],
+      "avoid_when": [
+        "nội dung chi tiết",
+        "bảng số liệu"
+      ],
+      "capacity_hint": {
+        "max_text_blocks": 4
+      },
+      "supports": [
+        "text_style",
+        "background_image"
+      ],
+      "pml_example": "cover_layout: title-slide"
+    },
+    {
+      "id": "section-header",
+      "family": "section",
+      "intent": [
+        "section_break",
+        "chapter_start"
+      ],
+      "description": "Slide phân cách chương/phần, nhấn mạnh tên section.",
+      "required_blocks": [
+        "title"
+      ],
+      "optional_blocks": [
+        "subtitle",
+        "background_image"
+      ],
+      "best_for": [
+        "chuyển sang mục lớn",
+        "phần I/II/III"
+      ],
+      "avoid_when": [
+        "section quá nhỏ chỉ có một ý"
+      ],
+      "capacity_hint": {
+        "max_words": 25
+      },
+      "supports": [
+        "text_style",
+        "background_image"
+      ],
+      "pml_example": ""
+    },
+    {
+      "id": "title-bullets",
+      "family": "content",
+      "intent": [
+        "explain",
+        "summarize",
+        "list",
+        "risks_warnings",
+        "key_points"
+      ],
+      "description": "Tiêu đề + danh sách bullet; layout mặc định cho nội dung khái quát.",
+      "required_blocks": [
+        "title",
+        "bullets"
+      ],
+      "optional_blocks": [
+        "subtitle",
+        "conclusion",
+        "summary_box",
+        "link"
+      ],
+      "best_for": [
+        "3-8 ý chính",
+        "nhắc nhở",
+        "đặc điểm tình hình",
+        "kết quả nổi bật"
+      ],
+      "avoid_when": [
+        "bảng nhiều hàng",
+        "so sánh hai ảnh",
+        "quá nhiều bullet không paginate"
+      ],
+      "capacity_hint": {
+        "ideal_bullets": "3-7",
+        "pagination": "supported"
+      },
+      "supports": [
+        "nested_bullets",
+        "icon_bullets",
+        "hyperlinks",
+        "conclusion_box",
+        "overflow_pagination"
+      ],
+      "pml_example": ""
+    },
+    {
+      "id": "two-column",
+      "family": "content",
+      "intent": [
+        "compare",
+        "contrast",
+        "input_output",
+        "pros_cons",
+        "before_after"
+      ],
+      "description": "Hai cột chữ song song; mỗi cột có heading và bullets/text.",
+      "required_blocks": [
+        "title",
+        "left",
+        "right"
+      ],
+      "optional_blocks": [
+        "subtitle",
+        "conclusion"
+      ],
+      "best_for": [
+        "đầu vào/đầu ra",
+        "ưu/nhược",
+        "hiện trạng/giải pháp"
+      ],
+      "avoid_when": [
+        "ảnh lớn",
+        "nhiều hơn 2 nhóm"
+      ],
+      "capacity_hint": {
+        "columns": 2,
+        "items_per_column": "2-5"
+      },
+      "supports": [
+        "icon_bullets",
+        "text_style"
+      ],
+      "pml_example": ""
+    },
+    {
+      "id": "title-image",
+      "family": "image",
+      "intent": [
+        "visual_explain",
+        "diagram_with_title"
+      ],
+      "description": "Tiêu đề + ảnh lớn kèm subtitle/caption tùy chọn.",
+      "required_blocks": [
+        "title",
+        "image"
+      ],
+      "optional_blocks": [
+        "subtitle",
+        "caption"
+      ],
+      "best_for": [
+        "sơ đồ kiến trúc",
+        "ảnh minh họa chính"
+      ],
+      "avoid_when": [
+        "ảnh cần caption chi tiết mà không cần title"
+      ],
+      "capacity_hint": {
+        "images": 1
+      },
+      "supports": [
+        "image_fit_modes",
+        "caption"
+      ],
+      "pml_example": ""
+    },
+    {
+      "id": "text-image",
+      "family": "mixed",
+      "intent": [
+        "explain_with_visual",
+        "architecture_explain"
+      ],
+      "description": "Một cột chữ bên trái, một cột ảnh bên phải.",
+      "required_blocks": [
+        "title",
+        "left",
+        "right.image"
+      ],
+      "optional_blocks": [
+        "subtitle",
+        "conclusion"
+      ],
+      "best_for": [
+        "giải thích sơ đồ",
+        "mô tả kiến trúc kèm hình"
+      ],
+      "avoid_when": [
+        "hai ảnh so sánh"
+      ],
+      "capacity_hint": {
+        "columns": 2,
+        "image_count": 1
+      },
+      "supports": [
+        "image_fit_modes",
+        "icon_bullets"
+      ],
+      "pml_example": ""
+    },
+    {
+      "id": "image-text",
+      "family": "mixed",
+      "intent": [
+        "visual_first_explain"
+      ],
+      "description": "Một cột ảnh bên trái, một cột chữ bên phải.",
+      "required_blocks": [
+        "title",
+        "left.image",
+        "right"
+      ],
+      "optional_blocks": [
+        "subtitle",
+        "conclusion"
+      ],
+      "best_for": [
+        "hình là trọng tâm trước rồi giải thích"
+      ],
+      "avoid_when": [
+        "chỉ có ảnh và caption"
+      ],
+      "capacity_hint": {
+        "columns": 2,
+        "image_count": 1
+      },
+      "supports": [
+        "image_fit_modes",
+        "icon_bullets"
+      ],
+      "pml_example": ""
+    },
+    {
+      "id": "two-images",
+      "family": "image",
+      "intent": [
+        "compare_images",
+        "before_after_visual"
+      ],
+      "description": "Hai ảnh đặt hai cột; dùng so sánh hiện trạng/đề xuất hoặc trước/sau.",
+      "required_blocks": [
+        "title",
+        "images"
+      ],
+      "optional_blocks": [
+        "subtitle",
+        "caption"
+      ],
+      "best_for": [
+        "so sánh hai phương án",
+        "trước/sau",
+        "hai kiến trúc"
+      ],
+      "avoid_when": [
+        "cần nhiều chữ giải thích"
+      ],
+      "capacity_hint": {
+        "images": 2
+      },
+      "supports": [
+        "image_fit_modes",
+        "captions"
+      ],
+      "pml_example": ""
+    },
+    {
+      "id": "hero-image",
+      "family": "image",
+      "intent": [
+        "hero_visual",
+        "visual_summary"
+      ],
+      "description": "Title/subtitle + ảnh lớn + caption dưới ảnh.",
+      "required_blocks": [
+        "title",
+        "image"
+      ],
+      "optional_blocks": [
+        "subtitle",
+        "caption"
+      ],
+      "best_for": [
+        "ảnh trung tâm cần diễn giải ngắn",
+        "sơ đồ tổng quan"
+      ],
+      "avoid_when": [
+        "không muốn title/subtitle"
+      ],
+      "capacity_hint": {
+        "images": 1
+      },
+      "supports": [
+        "caption",
+        "image_fit_modes"
+      ],
+      "pml_example": ""
+    },
+    {
+      "id": "image-caption",
+      "family": "image",
+      "intent": [
+        "image_only_with_caption",
+        "evidence_visual"
+      ],
+      "description": "Chỉ ảnh + caption, không title/subtitle.",
+      "required_blocks": [
+        "image"
+      ],
+      "optional_blocks": [
+        "caption"
+      ],
+      "best_for": [
+        "ảnh minh chứng",
+        "hình chụp/biểu đồ cần caption"
+      ],
+      "avoid_when": [
+        "cần tiêu đề slide rõ"
+      ],
+      "capacity_hint": {
+        "images": 1
+      },
+      "supports": [
+        "caption",
+        "image_fit_modes"
+      ],
+      "pml_example": ""
+    },
+    {
+      "id": "grid-3",
+      "family": "grid",
+      "intent": [
+        "multi_point",
+        "capabilities",
+        "categories"
+      ],
+      "description": "Lưới 3 ô card; mỗi ô có heading/text/bullets/image.",
+      "required_blocks": [
+        "title",
+        "cells"
+      ],
+      "optional_blocks": [
+        "subtitle",
+        "conclusion"
+      ],
+      "best_for": [
+        "3 nhóm nội dung",
+        "năng lực",
+        "hạng mục",
+        "kết quả nổi bật"
+      ],
+      "avoid_when": [
+        "nội dung mỗi ô quá dài",
+        "quan hệ tuần tự rõ ràng hơn timeline"
+      ],
+      "capacity_hint": {
+        "cells": 3,
+        "words_per_cell": "10-35"
+      },
+      "supports": [
+        "card_fill",
+        "icon_bullets",
+        "cell_image"
+      ],
+      "pml_example": ""
+    },
+    {
+      "id": "grid-4",
+      "family": "grid",
+      "intent": [
+        "multi_point",
+        "capabilities",
+        "categories"
+      ],
+      "description": "Lưới 4 ô card; mỗi ô có heading/text/bullets/image.",
+      "required_blocks": [
+        "title",
+        "cells"
+      ],
+      "optional_blocks": [
+        "subtitle",
+        "conclusion"
+      ],
+      "best_for": [
+        "4 nhóm nội dung",
+        "năng lực",
+        "hạng mục",
+        "kết quả nổi bật"
+      ],
+      "avoid_when": [
+        "nội dung mỗi ô quá dài",
+        "quan hệ tuần tự rõ ràng hơn timeline"
+      ],
+      "capacity_hint": {
+        "cells": 4,
+        "words_per_cell": "10-35"
+      },
+      "supports": [
+        "card_fill",
+        "icon_bullets",
+        "cell_image"
+      ],
+      "pml_example": ""
+    },
+    {
+      "id": "grid-5",
+      "family": "grid",
+      "intent": [
+        "multi_point",
+        "capabilities",
+        "categories"
+      ],
+      "description": "Lưới 5 ô card; mỗi ô có heading/text/bullets/image.",
+      "required_blocks": [
+        "title",
+        "cells"
+      ],
+      "optional_blocks": [
+        "subtitle",
+        "conclusion"
+      ],
+      "best_for": [
+        "5 nhóm nội dung",
+        "năng lực",
+        "hạng mục",
+        "kết quả nổi bật"
+      ],
+      "avoid_when": [
+        "nội dung mỗi ô quá dài",
+        "quan hệ tuần tự rõ ràng hơn timeline"
+      ],
+      "capacity_hint": {
+        "cells": 5,
+        "words_per_cell": "10-35"
+      },
+      "supports": [
+        "card_fill",
+        "icon_bullets",
+        "cell_image"
+      ],
+      "pml_example": ""
+    },
+    {
+      "id": "grid-6",
+      "family": "grid",
+      "intent": [
+        "multi_point",
+        "capabilities",
+        "categories"
+      ],
+      "description": "Lưới 6 ô card; mỗi ô có heading/text/bullets/image.",
+      "required_blocks": [
+        "title",
+        "cells"
+      ],
+      "optional_blocks": [
+        "subtitle",
+        "conclusion"
+      ],
+      "best_for": [
+        "6 nhóm nội dung",
+        "năng lực",
+        "hạng mục",
+        "kết quả nổi bật"
+      ],
+      "avoid_when": [
+        "nội dung mỗi ô quá dài",
+        "quan hệ tuần tự rõ ràng hơn timeline"
+      ],
+      "capacity_hint": {
+        "cells": 6,
+        "words_per_cell": "10-35"
+      },
+      "supports": [
+        "card_fill",
+        "icon_bullets",
+        "cell_image"
+      ],
+      "pml_example": ""
+    },
+    {
+      "id": "grid-4x2",
+      "family": "grid",
+      "intent": [
+        "matrix",
+        "capability_map",
+        "eight_items"
+      ],
+      "description": "Lưới 4 cột x 2 hàng, tổng 8 ô.",
+      "required_blocks": [
+        "title",
+        "cells"
+      ],
+      "optional_blocks": [
+        "subtitle"
+      ],
+      "best_for": [
+        "8 nhóm/nguyên tắc/nhiệm vụ",
+        "ma trận năng lực"
+      ],
+      "avoid_when": [
+        "ít hơn 6 ô",
+        "text dài"
+      ],
+      "capacity_hint": {
+        "cells": 8,
+        "columns": 4,
+        "rows": 2
+      },
+      "supports": [
+        "card_fill",
+        "icon_bullets"
+      ],
+      "pml_example": ""
+    },
+    {
+      "id": "numbered-columns-3",
+      "family": "process",
+      "intent": [
+        "steps",
+        "process",
+        "sequence",
+        "method"
+      ],
+      "description": "3 cột dạng card, mỗi cột có vòng tròn số thứ tự nổi bật phía trên.",
+      "required_blocks": [
+        "title",
+        "columns"
+      ],
+      "optional_blocks": [
+        "subtitle",
+        "conclusion"
+      ],
+      "best_for": [
+        "quy trình 3 bước",
+        "biện pháp theo bước",
+        "phương pháp triển khai"
+      ],
+      "avoid_when": [
+        "không có thứ tự",
+        "nội dung rất dài"
+      ],
+      "capacity_hint": {
+        "columns": 3,
+        "items_per_card": "0-4 bullets"
+      },
+      "supports": [
+        "card_fill",
+        "icon_bullets",
+        "number_badge"
+      ],
+      "pml_example": ""
+    },
+    {
+      "id": "numbered-columns-4",
+      "family": "process",
+      "intent": [
+        "steps",
+        "process",
+        "sequence",
+        "method"
+      ],
+      "description": "4 cột dạng card, mỗi cột có vòng tròn số thứ tự nổi bật phía trên.",
+      "required_blocks": [
+        "title",
+        "columns"
+      ],
+      "optional_blocks": [
+        "subtitle",
+        "conclusion"
+      ],
+      "best_for": [
+        "quy trình 4 bước",
+        "biện pháp theo bước",
+        "phương pháp triển khai"
+      ],
+      "avoid_when": [
+        "không có thứ tự",
+        "nội dung rất dài"
+      ],
+      "capacity_hint": {
+        "columns": 4,
+        "items_per_card": "0-4 bullets"
+      },
+      "supports": [
+        "card_fill",
+        "icon_bullets",
+        "number_badge"
+      ],
+      "pml_example": ""
+    },
+    {
+      "id": "numbered-columns-5",
+      "family": "process",
+      "intent": [
+        "steps",
+        "process",
+        "sequence",
+        "method"
+      ],
+      "description": "5 cột dạng card, mỗi cột có vòng tròn số thứ tự nổi bật phía trên.",
+      "required_blocks": [
+        "title",
+        "columns"
+      ],
+      "optional_blocks": [
+        "subtitle",
+        "conclusion"
+      ],
+      "best_for": [
+        "quy trình 5 bước",
+        "biện pháp theo bước",
+        "phương pháp triển khai"
+      ],
+      "avoid_when": [
+        "không có thứ tự",
+        "nội dung rất dài"
+      ],
+      "capacity_hint": {
+        "columns": 5,
+        "items_per_card": "0-4 bullets"
+      },
+      "supports": [
+        "card_fill",
+        "icon_bullets",
+        "number_badge"
+      ],
+      "pml_example": ""
+    },
+    {
+      "id": "numbered-columns-6",
+      "family": "process",
+      "intent": [
+        "steps",
+        "process",
+        "sequence",
+        "method"
+      ],
+      "description": "6 cột dạng card, mỗi cột có vòng tròn số thứ tự nổi bật phía trên.",
+      "required_blocks": [
+        "title",
+        "columns"
+      ],
+      "optional_blocks": [
+        "subtitle",
+        "conclusion"
+      ],
+      "best_for": [
+        "quy trình 6 bước",
+        "biện pháp theo bước",
+        "phương pháp triển khai"
+      ],
+      "avoid_when": [
+        "không có thứ tự",
+        "nội dung rất dài"
+      ],
+      "capacity_hint": {
+        "columns": 6,
+        "items_per_card": "0-4 bullets"
+      },
+      "supports": [
+        "card_fill",
+        "icon_bullets",
+        "number_badge"
+      ],
+      "pml_example": ""
+    },
+    {
+      "id": "stair-progress",
+      "family": "process",
+      "intent": [
+        "progress",
+        "roadmap",
+        "maturity_steps"
+      ],
+      "description": "Các bậc lệch dần như tiến trình đi lên; thể hiện progress theo bước.",
+      "required_blocks": [
+        "title",
+        "steps"
+      ],
+      "optional_blocks": [
+        "subtitle"
+      ],
+      "best_for": [
+        "lộ trình",
+        "mức trưởng thành",
+        "các giai đoạn tiến lên"
+      ],
+      "avoid_when": [
+        "nhiều text dài",
+        "không có thứ tự"
+      ],
+      "capacity_hint": {
+        "steps": "3-6"
+      },
+      "supports": [
+        "card_fill",
+        "step_cards"
+      ],
+      "pml_example": ""
+    },
+    {
+      "id": "stacked-stairs",
+      "family": "process",
+      "intent": [
+        "layered_progress",
+        "funnel_like_steps",
+        "priority_stack"
+      ],
+      "description": "Các bậc xếp chồng, nhỏ dần, căn một bên; hợp biểu diễn tầng/nấc ưu tiên.",
+      "required_blocks": [
+        "title",
+        "steps"
+      ],
+      "optional_blocks": [
+        "subtitle"
+      ],
+      "best_for": [
+        "tầng năng lực",
+        "mức ưu tiên",
+        "bậc trưởng thành"
+      ],
+      "avoid_when": [
+        "nhiều nội dung ngang hàng"
+      ],
+      "capacity_hint": {
+        "steps": "3-6"
+      },
+      "supports": [
+        "card_fill",
+        "side_alignment"
+      ],
+      "pml_example": ""
+    },
+    {
+      "id": "timeline",
+      "family": "process",
+      "intent": [
+        "timeline",
+        "milestones",
+        "schedule",
+        "progress_by_time"
+      ],
+      "description": "Đường ngang ở giữa, milestone chỉ vào đường, card xen kẽ trên/dưới.",
+      "required_blocks": [
+        "title",
+        "milestones"
+      ],
+      "optional_blocks": [
+        "subtitle",
+        "conclusion"
+      ],
+      "best_for": [
+        "tiến độ theo quý/tháng",
+        "mốc thời gian",
+        "kế hoạch triển khai"
+      ],
+      "avoid_when": [
+        "không có thời gian/mốc",
+        "quá nhiều milestone"
+      ],
+      "capacity_hint": {
+        "milestones": "3-6"
+      },
+      "supports": [
+        "card_fill",
+        "milestone_date"
+      ],
+      "pml_example": ""
+    },
+    {
+      "id": "title-table",
+      "family": "table",
+      "intent": [
+        "table",
+        "assignment",
+        "schedule",
+        "metrics"
+      ],
+      "description": "Tiêu đề + bảng; hợp phân công, chỉ tiêu, kế hoạch, so sánh số liệu.",
+      "required_blocks": [
+        "title",
+        "table"
+      ],
+      "optional_blocks": [
+        "subtitle",
+        "conclusion"
+      ],
+      "best_for": [
+        "nhiệm vụ và phân công",
+        "tiến độ",
+        "chỉ tiêu",
+        "danh sách đơn vị"
+      ],
+      "avoid_when": [
+        "bảng quá rộng hoặc quá nhiều dòng chưa paginate"
+      ],
+      "capacity_hint": {
+        "columns": "2-5",
+        "rows": "3-12",
+        "pagination": "supported"
+      },
+      "supports": [
+        "table",
+        "hyperlinks",
+        "overflow_pagination"
+      ],
+      "pml_example": ""
+    },
+    {
+      "id": "table-only",
+      "family": "table",
+      "intent": [
+        "dense_table",
+        "appendix_table"
+      ],
+      "description": "Bảng chiếm gần toàn slide, ít hoặc không có tiêu đề; dùng phụ lục/số liệu dày.",
+      "required_blocks": [
+        "table"
+      ],
+      "optional_blocks": [
+        "title",
+        "caption"
+      ],
+      "best_for": [
+        "bảng nhiều dòng",
+        "phụ lục"
+      ],
+      "avoid_when": [
+        "cần diễn giải nhiều"
+      ],
+      "capacity_hint": {
+        "columns": "2-6",
+        "rows": "8-18"
+      },
+      "supports": [
+        "table"
+      ],
+      "pml_example": ""
+    },
+    {
+      "id": "text-table",
+      "family": "mixed",
+      "intent": [
+        "explain_table",
+        "summary_plus_data"
+      ],
+      "description": "Một phần diễn giải ngắn kèm bảng.",
+      "required_blocks": [
+        "title",
+        "text",
+        "table"
+      ],
+      "optional_blocks": [
+        "subtitle",
+        "conclusion"
+      ],
+      "best_for": [
+        "tóm tắt kèm số liệu",
+        "giải thích bảng kế hoạch"
+      ],
+      "avoid_when": [
+        "bảng quá lớn"
+      ],
+      "capacity_hint": {
+        "text_words": "30-80",
+        "rows": "3-8"
+      },
+      "supports": [
+        "table",
+        "conclusion_box"
+      ],
+      "pml_example": ""
+    },
+    {
+      "id": "link-list",
+      "family": "content",
+      "intent": [
+        "references",
+        "resources",
+        "source_links"
+      ],
+      "description": "Danh sách liên kết/tài liệu tham khảo.",
+      "required_blocks": [
+        "title",
+        "links"
+      ],
+      "optional_blocks": [
+        "subtitle"
+      ],
+      "best_for": [
+        "nguồn tài liệu",
+        "tham chiếu"
+      ],
+      "avoid_when": [
+        "không có URL"
+      ],
+      "capacity_hint": {
+        "links": "2-8"
+      },
+      "supports": [
+        "hyperlinks"
+      ],
+      "pml_example": ""
+    },
+    {
+      "id": "conclusion",
+      "family": "content",
+      "intent": [
+        "final_takeaway",
+        "recommendation",
+        "decision"
+      ],
+      "description": "Slide kết luận/khuyến nghị nổi bật với summary box.",
+      "required_blocks": [
+        "title",
+        "conclusion"
+      ],
+      "optional_blocks": [
+        "bullets",
+        "subtitle"
+      ],
+      "best_for": [
+        "kết luận cuối phần",
+        "khuyến nghị",
+        "đề xuất"
+      ],
+      "avoid_when": [
+        "nội dung chưa có kết luận rõ"
+      ],
+      "capacity_hint": {
+        "main_text_words": "20-60"
+      },
+      "supports": [
+        "conclusion_box",
+        "icon"
+      ],
+      "pml_example": ""
+    },
+    {
+      "id": "title-only",
+      "family": "content",
+      "intent": [
+        "divider_simple",
+        "quote_like_title"
+      ],
+      "description": "Chỉ tiêu đề lớn, dùng khi cần nhấn mạnh một thông điệp ngắn.",
+      "required_blocks": [
+        "title"
+      ],
+      "optional_blocks": [
+        "subtitle"
+      ],
+      "best_for": [
+        "thông điệp ngắn",
+        "chuyển ý nhẹ"
+      ],
+      "avoid_when": [
+        "nội dung chi tiết"
+      ],
+      "capacity_hint": {
+        "max_words": 18
+      },
+      "supports": [
+        "text_style"
+      ],
+      "pml_example": ""
+    },
+    {
+      "id": "quote",
+      "family": "content",
+      "intent": [
+        "quote",
+        "principle",
+        "key_message"
+      ],
+      "description": "Một câu trích/nhận định nổi bật, có nguồn nếu cần.",
+      "required_blocks": [
+        "quote"
+      ],
+      "optional_blocks": [
+        "author",
+        "caption"
+      ],
+      "best_for": [
+        "phát biểu chỉ đạo",
+        "nguyên tắc",
+        "thông điệp lãnh đạo"
+      ],
+      "avoid_when": [
+        "nhiều bullet"
+      ],
+      "capacity_hint": {
+        "quote_words": "10-45"
+      },
+      "supports": [
+        "text_style"
+      ],
+      "pml_example": ""
+    }
+  ],
+  "intent_to_preferred_layouts": {
+    "situation_context": [
+      "title-bullets",
+      "two-column"
+    ],
+    "highlight_results": [
+      "grid-3",
+      "grid-4",
+      "numbered-columns-4",
+      "title-bullets"
+    ],
+    "risks_warnings": [
+      "title-bullets",
+      "grid-3",
+      "conclusion"
+    ],
+    "measures_solutions": [
+      "numbered-columns-3",
+      "numbered-columns-4",
+      "stair-progress",
+      "title-bullets"
+    ],
+    "tasks_assignment": [
+      "title-table",
+      "text-table"
+    ],
+    "implementation_plan": [
+      "timeline",
+      "stair-progress",
+      "title-table"
+    ],
+    "metrics_kpi": [
+      "title-table",
+      "grid-4x2"
+    ],
+    "comparison": [
+      "two-column",
+      "two-images",
+      "text-table"
+    ],
+    "visual_evidence": [
+      "hero-image",
+      "image-caption",
+      "title-image"
+    ],
+    "architecture": [
+      "text-image",
+      "image-text",
+      "title-image"
+    ],
+    "conclusion_recommendation": [
+      "conclusion",
+      "title-bullets"
+    ]
+  }
+}
